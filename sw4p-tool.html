@@ -1,0 +1,76 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="sw4p-tool">
+
+    <template>
+        <style is="custom-style">
+            :root {
+                --sw4p-tool-width: 100%;
+            }
+            :host {
+                display: block;
+                background-color: white;
+                font-family: 'Roboto', sans-serif;
+                margin: 8px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+                width: var(--sw4p-tool-width);
+            }
+            .tool {
+                display: flex;
+                flex-flow: column;
+            }
+            .title {
+                flex: 1 1 20%;
+                color: black;
+                font-size: 22px;
+                text-decoration: none;
+                margin: 16px;
+            }
+            .desc {
+                flex: 0 1 auto;
+                margin: 8px 8px 8px 32px;
+            }
+            .actions {
+                flex: 1 1 20%;
+                display: flex;
+                flex-flow: column;
+                align-items: left;
+                justify-content: center;
+                margin: 16px;
+            }
+        </style>
+
+        <div class="tool">
+            <a href="[[href]]" class="title"><slot name="title"></slot></a>
+            <p class="desc"><slot name="description"></slot></p>
+            <slot name="actions" class="actions"></slot>
+        </div>
+
+    </template>
+
+    <script>
+        class Sw4pTool extends Polymer.Element {
+            static get is() {
+                return 'sw4p-tool';
+            }
+            static get properties() {
+                return {
+                    href: {
+                        type: String
+                    },
+                    width: {
+                        type: String,
+                        value: '100%',
+                        observer: '_updateWidth'
+                    }
+                };
+            }
+            _updateWidth() {
+                this.updateStyles({'--sw4p-tool-width': this.width});
+            }
+        }
+        customElements.define(Sw4pTool.is, Sw4pTool);
+    </script>
+
+</dom-module>
